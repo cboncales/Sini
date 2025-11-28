@@ -1,5 +1,7 @@
-import { contextBridge } from 'electron'
+import { contextBridge, ipcRenderer } from 'electron'
 
 contextBridge.exposeInMainWorld('api', {
-  // your functions later...
+  selectFolder: () => ipcRenderer.invoke('dialog:selectFolder'),
+  scanMovies: (folderPath) => ipcRenderer.invoke('movies:scan', folderPath),
+  playMovie: (moviePath) => ipcRenderer.invoke('movie:play', moviePath)
 })
